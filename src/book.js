@@ -21,6 +21,7 @@ class Book {
   }
 
   renderItem() {
+    console.log('rendered');
     const div = document.createElement('div');
     div.className = 'item';
     div.innerHTML = `
