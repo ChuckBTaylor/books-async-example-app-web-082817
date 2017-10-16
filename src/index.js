@@ -5,10 +5,7 @@
 // author name:
 // `https://www.googleapis.com/books/v1/volumes?q=inauthor:eco`
 
-const baseUrl = `https://www.googleapis.com/books/v1/volumes`;
-
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('loaded');
   const app = new App();
   app.addAllEventListeners();
 

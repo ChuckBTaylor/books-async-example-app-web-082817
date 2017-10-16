@@ -1,3 +1,5 @@
+const baseUrl = `https://www.googleapis.com/books/v1/volumes`;
+
 class App {
   constructor() {
     this.list = document.querySelector('.ui.relaxed.divided.list');
@@ -16,7 +18,53 @@ class App {
     input.value = '';
     this.list.innerHTML = '';
 
-    this.renderBooks(Book.findByTitle(term));
+    // const req = new XMLHttpRequest();
+    //
+    // req.open('GET', `${baseUrl}?q=${term}`);
+    //
+    // const that = this;
+    //
+    // req.onload = function() {
+    //   const data = JSON.parse(this.response);
+    // data.items
+    //   .map(book => {
+    //     return {
+    //       id: book.id,
+    //       title: book.volumeInfo.title,
+    //       author: book.volumeInfo.authors[0],
+    //       description: book.volumeInfo.description
+    //     };
+    //   })
+    //   .forEach(bookData => new Book(bookData));
+    //
+    // that.renderBooks(Book.all);
+    // };
+    //
+    // req.send();
+
+    fetch(`${baseUrl}?q=${term}`)
+      .then(res => res.json())
+      .then(data => {
+        data.items
+          .map(book => {
+            return {
+              id: book.id,
+              title: book.volumeInfo.title,
+              author: book.volumeInfo.authors[0],
+              description: book.volumeInfo.description
+            };
+          })
+          .forEach(bookData => new Book(bookData));
+
+        this.renderBooks(Book.all);
+      });
+
+    console.log('at the bottom');
+
+    // debugger;
+
+    //
+    // this.renderBooks(Book.findByTitle(term));
   }
 
   handleItemClick(ev) {
